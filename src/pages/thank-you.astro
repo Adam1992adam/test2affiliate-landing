@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="شكراً لك! 🎉">
+  <main>
+    <div class="container">
+      
+      <!-- Success Animation -->
+      <div class="success-container">
+        <div class="checkmark-circle">
+          <div class="checkmark">✓</div>
+        </div>
+        
+        <h1 class="success-title">🎉 تم بنجاح!</h1>
+        
+        <div class="success-box">
+          <p class="success-message">شكراً لاشتراكك معنا! 💚</p>
+          <p class="success-subtitle">تم إرسال الكتاب المجاني إلى بريدك الإلكتروني</p>
+          <p class="success-note">📧 تفقد صندوق الوارد (وربما البريد المزعج/Spam)</p>
+        </div>
+
+        <div class="info-badges">
+          <div class="info-badge">
+            <span class="badge-icon">⏱️</span>
+            <span>يصل خلال دقائق</span>
+          </div>
+          <div class="info-badge">
+            <span class="badge-icon">🔒</span>
+            <span>آمن ومحمي</span>
+          </div>
+          <div class="info-badge">
+            <span class="badge-icon">📚</span>
+            <span>جاهز للقراءة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Offer -->
+      <div class="offer-section">
+        <div class="offer-badge">🔥 عرض خاص لفترة محدودة</div>
+        
+        <h2 class="offer-title">هل أعجبك الكتاب؟</h2>
+        
+        <p class="offer-subtitle">
+          احصل على الدورة الكاملة مع محتوى إضافي حصري
+        </p>
+
+        <div class="features-list">
+          <div class="feature">
+            <span class="feature-check">✅</span>
+            <span>20+ ساعة من الفيديوهات التعليمية</span>
+          </div>
+          <div class="feature">
+            <span class="feature-check">✅</span>
+            <span>قوالب وأدوات جاهزة للاستخدام</span>
+          </div>
+          <div class="feature">
+            <span class="feature-check">✅</span>
+            <span>دعم فني مباشر لمدة 6 أشهر</span>
+          </div>
+          <div class="feature">
+            <span class="feature-check">✅</span>
+            <span>شهادة معتمدة عند الإنتهاء</span>
+          </div>
+        </div>
+
+        <div class="pricing">
+          <span class="old-price">$297</span>
+          <span class="new-price">$147</span>
+        </div>
+        
+        <p class="savings">💰 وفّر 50% - خصم حصري للمشتركين الجدد</p>
+
+        <a href="https://your-affiliate-link.com" target="_blank" class="cta-button">
+          🚀 اشترك الآن بخصم 50%
+        </a>
+
+        <p class="urgency">⏰ العرض ينتهي خلال 24 ساعة</p>
+      </div>
+
+      <!-- Back to Home -->
+      <div class="back-home">
+        <a href="/">← العودة للصفحة الرئيسية</a>
+      </div>
+
+    </div>
+  </main>
+
+  <style>
+    main {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 0;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Success Section */
+    .success-container {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .checkmark-circle {
+      width: 100px;
+      height: 100px;
+      background: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      animation: scaleIn 0.5s ease-out;
+      box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+    }
+    
+    .checkmark {
+      color: white;
+      font-size: 60px;
+      font-weight: bold;
+    }
+    
+    .success-title {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 30px;
+      font-weight: 900;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    
+    .success-box {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .success-message {
+      font-size: 1.8rem;
+      color: #2d3748;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    
+    .success-subtitle {
+      font-size: 1.2rem;
+      color: #4a5568;
+      margin-bottom: 10px;
+    }
+    
+    .success-note {
+      font-size: 1rem;
+      color: #718096;
+    }
+    
+    .info-badges {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .info-badge {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 12px 24px;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      color: #2d3748;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .badge-icon {
+      font-size: 1.5rem;
+    }
+    
+    /* Offer Section */
+    .offer-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      border: 3px solid rgba(255,255,255,0.2);
+      margin-bottom: 40px;
+    }
+    
+    .offer-badge {
+      display: inline-block;
+      background: #fbbf24;
+      color: #000;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(251, 191, 36, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    .offer-title {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 20px;
+      font-weight: 900;
+    }
+    
+    .offer-subtitle {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+    }
+    
+    .features-list {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: right;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: white;
+    }
+    
+    .feature:last-child {
+      margin-bottom: 0;
+    }
+    
+    .feature-check {
+      font-size: 1.5rem;
+    }
+    
+    .pricing {
+      margin: 30px 0;
+    }
+    
+    .old-price {
+      font-size: 2rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: line-through;
+      margin-left: 20px;
+    }
+    
+    .new-price {
+      font-size: 3rem;
+      color: #fbbf24;
+      font-weight: 900;
+    }
+    
+    .savings {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 20px 50px;
+      border-radius: 15px;
+      font-weight: 900;
+      font-size: 1.3rem;
+      text-decoration: none;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    
+    .urgency {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+    
+    /* Back Home */
+    .back-home {
+      text-align: center;
+    }
+    
+    .back-home a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: opacity 0.3s;
+    }
+    
+    .back-home a:hover {
+      opacity: 0.8;
+    }
+    
+    /* Animations */
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .success-title {
+        font-size: 2rem;
+      }
+      
+      .offer-section {
+        padding: 30px 20px;
+      }
+      
+      .offer-title {
+        font-size: 1.8rem;
+      }
+      
+      .info-badges {
+        flex-direction: column;
+      }
+    }
+  </style>
+</Layout>

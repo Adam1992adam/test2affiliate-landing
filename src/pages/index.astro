@@ -1,16 +1,263 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="احصل على كتابك المجاني 📚">
+  <main>
+    <div class="container">
+      
+      <!-- Badge -->
+      <div class="badge-container">
+        <div class="badge">
+          🎁 عرض محدود - مجاني 100% 🔥
+        </div>
+      </div>
+      
+      <!-- Hero -->
+      <div class="hero">
+        <h1 class="main-title">
+          📚 كتاب مجاني يغير حياتك!
+        </h1>
+        
+        <p class="subtitle">
+          اكتشف أسرار <span class="highlight">[موضوع الكتاب]</span> في دقائق واحصل على استراتيجيات عملية
+        </p>
+        
+        <div class="features">
+          <div class="feature-item">✅ سهل التطبيق</div>
+          <div class="feature-item">✅ مجرب ومضمون</div>
+          <div class="feature-item">✅ مناسب للمبتدئين</div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <SubscribeForm />
+
+      <!-- Trust -->
+      <div class="trust-signals">
+        <span>🔒 معلوماتك آمنة ومحمية</span>
+        <span>📧 لن نرسل رسائل مزعجة</span>
+        <span>⚡ تسليم فوري</span>
+      </div>
+
+      <!-- Benefits -->
+      <div class="benefits-section">
+        <h2 class="section-title">ماذا ستتعلم من هذا الكتاب؟ 🎯</h2>
+        
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">💡</div>
+            <h3>استراتيجيات مبتكرة</h3>
+            <p>تعلم أحدث الطرق والأساليب التي يستخدمها الخبراء لتحقيق نتائج مذهلة</p>
+          </div>
+          
+          <div class="benefit-card">
+            <div class="benefit-icon">🚀</div>
+            <h3>نتائج سريعة</h3>
+            <p>طبّق ما تعلمته فوراً واحصل على نتائج ملموسة في وقت قياسي</p>
+          </div>
+          
+          <div class="benefit-card">
+            <div class="benefit-icon">⭐</div>
+            <h3>خطوات عملية</h3>
+            <p>دليل شامل خطوة بخطوة مع أمثلة واقعية يمكنك تطبيقها فوراً</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Proof -->
+      <div class="social-proof">
+        <p>انضم لأكثر من <strong>10,000+</strong> شخص حصلوا على الكتاب</p>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="rating-text">تقييم 5/5 من المستخدمين</p>
+      </div>
+
+    </div>
+  </main>
+
+  <style>
+    main {
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      min-height: 100vh;
+      padding: 40px 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Badge */
+    .badge-container {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: bounce 2s infinite;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+    }
+    
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .subtitle {
+      font-size: 1.5rem;
+      color: #2d3748;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    
+    .highlight {
+      color: #764ba2;
+      font-weight: bold;
+    }
+    
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .feature-item {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Trust Signals */
+    .trust-signals {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+      color: #4a5568;
+      font-size: 14px;
+    }
+    
+    /* Benefits */
+    .benefits-section {
+      margin: 60px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2d3748;
+      margin-bottom: 40px;
+      font-weight: bold;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .benefit-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 5px solid #667eea;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+    }
+    
+    .benefit-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    
+    .benefit-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #2d3748;
+    }
+    
+    .benefit-card p {
+      color: #718096;
+      line-height: 1.8;
+    }
+    
+    /* Social Proof */
+    .social-proof {
+      text-align: center;
+      margin: 50px 0;
+      color: #2d3748;
+    }
+    
+    .social-proof strong {
+      color: #764ba2;
+      font-size: 1.2rem;
+    }
+    
+    .stars {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+    
+    .rating-text {
+      color: #718096;
+      font-size: 14px;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .trust-signals {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</Layout>
