@@ -2,54 +2,67 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    // ✅ متغيرات البيئة الصحيحة في Cloudflare Pages
+    const env = locals.env;
+
+    // 🔍 DEBUG (مؤقت)
+    console.log("CF ENV DEBUG", {
+      GOOGLE_APPS_SCRIPT_URL: env.GOOGLE_APPS_SCRIPT_URL,
+      GOOGLE_DRIVE_EBOOK_LINK: env.GOOGLE_DRIVE_EBOOK_LINK,
+      RESEND_API_KEY: env.RESEND_API_KEY ? "OK" : "MISSING",
+    });
+
     const { name, email } = await request.json();
 
-    // التحقق من صحة البيانات
+    // 1️⃣ التحقق من البيانات
     if (!name || !email) {
-      return new Response(JSON.stringify({ 
-        success: false,
-        error: 'الرجاء إدخال الاسم والبريد الإلكتروني' 
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'الرجاء إدخال الاسم والبريد الإلكتروني'
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return new Response(JSON.stringify({ 
-        success: false,
-        error: 'البريد الإلكتروني غير صحيح' 
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'البريد الإلكتروني غير صحيح'
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
     }
-    // 🔍 DEBUG: فحص متغيرات البيئة في Cloudflare
-console.log("CF ENV DEBUG", {
-  GOOGLE_APPS_SCRIPT_URL: import.meta.env.GOOGLE_APPS_SCRIPT_URL,
-  GOOGLE_DRIVE_EBOOK_LINK: import.meta.env.GOOGLE_DRIVE_EBOOK_LINK,
-  RESEND_API_KEY: import.meta.env.RESEND_API_KEY ? "OK" : "MISSING",
-});
-    // 1️⃣ إرسال البيانات إلى Google Sheet عبر Apps Script
-await fetch(import.meta.env.GOOGLE_APPS_SCRIPT_URL, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ name, email }),
-});
 
+    // 2️⃣ حماية إضافية (حتى لا يعود الخطأ مستقبلاً)
+    if (!env.GOOGLE_APPS_SCRIPT_URL) {
+      throw new Error('GOOGLE_APPS_SCRIPT_URL is missing');
+    }
 
-    // 2️⃣ إرسال الإيميل الترحيبي عبر Resend
-    const ebookLink = import.meta.env.GOOGLE_DRIVE_EBOOK_LINK;
+    if (!env.GOOGLE_DRIVE_EBOOK_LINK) {
+      throw new Error('GOOGLE_DRIVE_EBOOK_LINK is missing');
+    }
 
+    if (!env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is missing');
+    }
+
+    // 3️⃣ إرسال البيانات إلى Google Sheets
+    await fetch(env.GOOGLE_APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email }),
+    });
+
+    // 4️⃣ إرسال الإيميل عبر Resend
     const emailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${import.meta.env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -57,113 +70,52 @@ await fetch(import.meta.env.GOOGLE_APPS_SCRIPT_URL, {
         to: email,
         subject: `مرحباً ${name}! 📚 كتابك المجاني بانتظارك`,
         html: `
-          <!DOCTYPE html>
-          <html dir="rtl">
-          <head>
-            <meta charset="UTF-8">
-            <style>
-              body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                background-color: #f4f4f4; 
-                margin: 0; 
-                padding: 0; 
-              }
-              .container { 
-                max-width: 600px; 
-                margin: 40px auto; 
-                background: white; 
-                border-radius: 10px; 
-                overflow: hidden; 
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-              }
-              .header { 
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                padding: 40px 20px; 
-                text-align: center; 
-                color: white; 
-              }
-              .content { 
-                padding: 40px 30px; 
-                text-align: right; 
-              }
-              .button { 
-                display: inline-block; 
-                background: #667eea; 
-                color: white !important; 
-                padding: 15px 40px; 
-                text-decoration: none; 
-                border-radius: 5px; 
-                font-weight: bold; 
-                margin: 20px 0; 
-              }
-              .footer { 
-                background: #f8f8f8; 
-                padding: 20px; 
-                text-align: center; 
-                color: #666; 
-                font-size: 14px; 
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <h1 style="margin: 0; font-size: 32px;">🎉 أهلاً ${name}!</h1>
-              </div>
-              
-              <div class="content">
-                <p style="font-size: 18px; line-height: 1.8;">
-                  شكراً لاشتراكك معنا! يسعدنا أن نقدم لك <strong>الكتاب الإلكتروني المجاني</strong> كما وعدناك.
-                </p>
-                
-                <p style="font-size: 16px; line-height: 1.8; color: #555;">
-                  هذا الكتاب سيساعدك على تحقيق أهدافك وتطوير مهاراتك بشكل عملي وسريع.
-                </p>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                  <a href="${ebookLink}" class="button">
-                    📥 تحميل الكتاب الآن
-                  </a>
-                </div>
-                
-                <p style="font-size: 14px; color: #888; border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px;">
-                  💡 <strong>نصيحة:</strong> إذا كان الرابط لا يعمل، انسخه والصقه في متصفحك مباشرة.
-                </p>
-              </div>
-              
-              <div class="footer">
-                <p>تم إرسال هذا الإيميل إلى: ${email}</p>
-                <p style="margin-top: 10px;">© 2024 جميع الحقوق محفوظة</p>
-              </div>
-            </div>
-          </body>
-          </html>
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body style="font-family: Arial, sans-serif; background:#f4f4f4; padding:20px;">
+  <div style="max-width:600px; margin:auto; background:#fff; padding:30px; border-radius:10px;">
+    <h2>🎉 أهلاً ${name}!</h2>
+    <p>شكراً لاشتراكك معنا، يمكنك تحميل كتابك المجاني من هنا:</p>
+    <p style="text-align:center;">
+      <a href="${env.GOOGLE_DRIVE_EBOOK_LINK}"
+         style="display:inline-block;padding:12px 30px;background:#667eea;color:#fff;text-decoration:none;border-radius:6px;">
+        📥 تحميل الكتاب
+      </a>
+    </p>
+    <p style="font-size:13px;color:#777;">إذا لم يعمل الزر، انسخ الرابط والصقه في المتصفح.</p>
+  </div>
+</body>
+</html>
         `
       })
     });
 
     if (!emailResponse.ok) {
-      const error = await emailResponse.text();
-      console.error('Resend Error:', error);
+      const errorText = await emailResponse.text();
+      console.error('Resend Error:', errorText);
       throw new Error('فشل إرسال الإيميل');
     }
 
-    return new Response(JSON.stringify({ 
-      success: true,
-      message: 'تم التسجيل بنجاح! تفقد بريدك الإلكتروني.' 
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    // 5️⃣ نجاح
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: 'تم التسجيل بنجاح! تفقد بريدك الإلكتروني.'
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
 
   } catch (error) {
     console.error('خطأ في API:', error);
-    return new Response(JSON.stringify({ 
-      success: false,
-      error: 'حدث خطأ، الرجاء المحاولة مرة أخرى' 
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: 'حدث خطأ، الرجاء المحاولة مرة أخرى'
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 };
