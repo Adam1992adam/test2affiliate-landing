@@ -6,13 +6,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     // ✅ متغيرات البيئة الصحيحة في Cloudflare Pages
     const env = locals.runtime.env;
-
-    // 🔍 DEBUG (مؤقت)
-    console.log("CF ENV DEBUG", {
-      GOOGLE_APPS_SCRIPT_URL: env.GOOGLE_APPS_SCRIPT_URL,
-      GOOGLE_DRIVE_EBOOK_LINK: env.GOOGLE_DRIVE_EBOOK_LINK,
-      RESEND_API_KEY: env.RESEND_API_KEY ? "OK" : "MISSING",
-    });
+    
 
     const { name, email } = await request.json();
 
