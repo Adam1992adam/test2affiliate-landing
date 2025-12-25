@@ -28,21 +28,15 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // 1️⃣ إرسال البيانات إلى Google Form
-    const formData = new URLSearchParams();
-    formData.append('entry.539030042', name);  // ⚠️ غيّر هذا الرقم
-    formData.append('entry.1332859622', email); // ⚠️ غيّر هذا الرقم
+    // 1️⃣ إرسال البيانات إلى Google Sheet عبر Apps Script
+await fetch(import.meta.env.GOOGLE_APPS_SCRIPT_URL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ name, email }),
+});
 
-    await fetch(
-      import.meta.env.GOOGLE_FORM_ACTION_URL,
-      {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
 
     // 2️⃣ إرسال الإيميل الترحيبي عبر Resend
     const ebookLink = import.meta.env.GOOGLE_DRIVE_EBOOK_LINK;
