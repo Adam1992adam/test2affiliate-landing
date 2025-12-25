@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro';
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     // ✅ متغيرات البيئة الصحيحة في Cloudflare Pages
-    const env = locals.env;
+    const env = locals.runtime.env;
 
     // 🔍 DEBUG (مؤقت)
     console.log("CF ENV DEBUG", {
