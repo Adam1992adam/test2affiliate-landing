@@ -27,7 +27,12 @@ export const POST: APIRoute = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' }
       });
     }
-
+    // 🔍 DEBUG: فحص متغيرات البيئة في Cloudflare
+console.log("CF ENV DEBUG", {
+  GOOGLE_APPS_SCRIPT_URL: import.meta.env.GOOGLE_APPS_SCRIPT_URL,
+  GOOGLE_DRIVE_EBOOK_LINK: import.meta.env.GOOGLE_DRIVE_EBOOK_LINK,
+  RESEND_API_KEY: import.meta.env.RESEND_API_KEY ? "OK" : "MISSING",
+});
     // 1️⃣ إرسال البيانات إلى Google Sheet عبر Apps Script
 await fetch(import.meta.env.GOOGLE_APPS_SCRIPT_URL, {
   method: 'POST',
