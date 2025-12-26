@@ -1,55 +1,85 @@
 ---
 ---
 
-<div class="form-wrapper">
+<div class="form-wrapper" id="subscribe-form">
   <div class="form-container">
     
     <div class="form-header">
-      <div class="form-badge">⚡ احصل عليه الآن مجاناً</div>
+      <div class="form-badge">⚡ Get Instant Access</div>
+      <h3 class="form-title">Download Your Free Guide</h3>
+      <p class="form-subtitle">Enter your details below to receive your copy</p>
     </div>
 
-    <form id="subscribe-form">
+    <form id="subscribe-form-element">
       
-      <!-- Name -->
+      <!-- Name Field -->
       <div class="form-group">
         <label for="name">
           <span class="label-icon">👤</span>
-          <span>الاسم الكامل</span>
+          <span class="label-text">Full Name</span>
         </label>
         <input 
           type="text" 
           id="name"
           name="name" 
           required
-          placeholder="أدخل اسمك الكامل"
+          placeholder="Enter your full name"
+          autocomplete="name"
         />
       </div>
 
-      <!-- Email -->
+      <!-- Email Field -->
       <div class="form-group">
         <label for="email">
           <span class="label-icon">📧</span>
-          <span>البريد الإلكتروني</span>
+          <span class="label-text">Email Address</span>
         </label>
         <input 
           type="email" 
           id="email"
           name="email" 
           required
-          placeholder="example@email.com"
+          placeholder="your.email@example.com"
+          autocomplete="email"
         />
       </div>
 
-      <!-- Submit -->
-      <button type="submit" id="submit-btn">
-        <span id="btn-text">📚 احصل على الكتاب المجاني الآن 🎁</span>
-        <span id="btn-loading" class="hidden">⏳ جاري الإرسال...</span>
+      <!-- Submit Button -->
+      <button type="submit" id="submit-btn" class="submit-button">
+        <span id="btn-text" class="btn-content">
+          <span class="btn-icon">📥</span>
+          <span class="btn-main-text">Get My Free Guide Now</span>
+        </span>
+        <span id="btn-loading" class="btn-content hidden">
+          <span class="spinner">⏳</span>
+          <span>Sending...</span>
+        </span>
       </button>
 
-      <p id="message"></p>
+      <!-- Message Display -->
+      <div id="message" class="message-box"></div>
       
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="trust-item">
+          <span class="trust-icon">🔒</span>
+          <span>100% Secure</span>
+        </div>
+        <div class="trust-divider">•</div>
+        <div class="trust-item">
+          <span class="trust-icon">📧</span>
+          <span>No Spam</span>
+        </div>
+        <div class="trust-divider">•</div>
+        <div class="trust-item">
+          <span class="trust-icon">⚡</span>
+          <span>Instant Access</span>
+        </div>
+      </div>
+
+      <!-- Privacy Note -->
       <p class="privacy-note">
-        🔒 معلوماتك آمنة ومحمية | لن نرسل رسائل مزعجة
+        We respect your privacy. Your information is 100% secure and will never be shared.
       </p>
     </form>
   </div>
@@ -62,126 +92,324 @@
   }
   
   .form-container {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Decorative gradient background */
+  .form-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+    pointer-events: none;
   }
   
   .form-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    position: relative;
+    z-index: 1;
   }
   
   .form-badge {
     display: inline-block;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    margin-bottom: 15px;
+    animation: subtle-bounce 3s ease-in-out infinite;
+  }
+  
+  @keyframes subtle-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #2d3748;
+    margin: 15px 0 10px;
+    line-height: 1.2;
+  }
+  
+  .form-subtitle {
+    color: #718096;
+    font-size: 1rem;
+    margin: 0;
   }
   
   .form-group {
     margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
   }
   
   label {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    font-size: 1.1rem;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
     color: #2d3748;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    transition: color 0.3s;
   }
   
   .label-icon {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    filter: grayscale(0.3);
+  }
+  
+  .label-text {
+    letter-spacing: 0.3px;
   }
   
   input {
     width: 100%;
-    padding: 15px 20px;
+    padding: 16px 20px;
     font-size: 16px;
     border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 14px;
     background: #f7fafc;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     font-family: inherit;
+    color: #2d3748;
+  }
+  
+  input::placeholder {
+    color: #a0aec0;
+  }
+  
+  input:hover {
+    border-color: #cbd5e0;
+    background: #fff;
   }
   
   input:focus {
     outline: none;
     border-color: #667eea;
     background: white;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
-  
-  button {
-    width: 100%;
-    padding: 18px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-    font-family: inherit;
-  }
-  
-  button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-  }
-  
-  button:active {
+    box-shadow: 
+      0 0 0 4px rgba(102, 126, 234, 0.1),
+      0 4px 12px rgba(102, 126, 234, 0.1);
     transform: translateY(-1px);
   }
   
-  button:disabled {
+  /* Submit Button */
+  .submit-button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+      0 10px 30px rgba(102, 126, 234, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .submit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .submit-button:hover::before {
+    left: 100%;
+  }
+  
+  .submit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 15px 40px rgba(102, 126, 234, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  }
+  
+  .submit-button:active {
+    transform: translateY(-1px);
+  }
+  
+  .submit-button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+    transform: none;
+  }
+  
+  .btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .btn-icon {
+    font-size: 1.3rem;
+  }
+  
+  .btn-main-text {
+    letter-spacing: 0.3px;
+  }
+  
+  .spinner {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   
   .hidden {
-    display: none;
+    display: none !important;
   }
   
-  #message {
-    margin-top: 15px;
+  /* Message Box */
+  .message-box {
+    margin-top: 20px;
+    padding: 0;
     text-align: center;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
+    font-weight: 600;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
   }
   
+  .message-box:not(:empty) {
+    padding: 15px;
+    animation: slideDown 0.3s ease;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Trust Badges */
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+  }
+  
+  .trust-icon {
+    font-size: 1.2rem;
+  }
+  
+  .trust-divider {
+    color: #cbd5e0;
+    font-weight: bold;
+  }
+  
+  /* Privacy Note */
   .privacy-note {
     text-align: center;
-    font-size: 13px;
+    font-size: 0.85rem;
     color: #718096;
     margin-top: 20px;
+    line-height: 1.6;
+    padding: 0 10px;
   }
   
+  /* Responsive Design */
   @media (max-width: 768px) {
     .form-container {
-      padding: 25px;
+      padding: 35px 25px;
+      border-radius: 25px;
     }
     
-    button {
-      font-size: 1rem;
+    .form-title {
+      font-size: 1.5rem;
+    }
+    
+    .form-subtitle {
+      font-size: 0.95rem;
+    }
+    
+    .submit-button {
+      font-size: 1.05rem;
+      padding: 18px;
+    }
+    
+    .trust-badges {
+      gap: 8px;
+    }
+    
+    .trust-item {
+      font-size: 0.85rem;
+    }
+    
+    .trust-divider {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form-container {
+      padding: 30px 20px;
+    }
+    
+    .trust-badges {
+      flex-direction: column;
+      gap: 10px;
     }
   }
 </style>
 
 <script>
-  const form = document.getElementById('subscribe-form') as HTMLFormElement;
+  const form = document.getElementById('subscribe-form-element') as HTMLFormElement;
   const message = document.getElementById('message') as HTMLElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const btnText = document.getElementById('btn-text') as HTMLElement;
@@ -190,10 +418,12 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // Disable button and show loading
     submitBtn.disabled = true;
     btnText.classList.add('hidden');
     btnLoading.classList.remove('hidden');
     message.textContent = '';
+    message.style.padding = '0';
 
     const formData = new FormData(form);
     const data = {
@@ -211,21 +441,35 @@
       const result = await response.json();
 
       if (result.success) {
-        window.location.href = '/thank-you';
+        // Success - redirect to thank you page
+        message.textContent = '✅ Success! Redirecting...';
+        message.style.color = '#10b981';
+        message.style.backgroundColor = '#d1fae5';
+        message.style.border = '2px solid #10b981';
+        
+        setTimeout(() => {
+          window.location.href = '/thank-you';
+        }, 500);
       } else {
-        message.textContent = result.error || 'حدث خطأ، حاول مرة أخرى';
+        // Error - show message
+        message.textContent = result.error || 'Something went wrong. Please try again.';
         message.style.color = '#e53e3e';
         message.style.backgroundColor = '#fff5f5';
+        message.style.border = '2px solid #feb2b2';
         
+        // Re-enable button
         submitBtn.disabled = false;
         btnText.classList.remove('hidden');
         btnLoading.classList.add('hidden');
       }
     } catch (error) {
-      message.textContent = 'حدث خطأ في الاتصال. حاول مجدداً.';
+      // Network error
+      message.textContent = 'Connection error. Please check your internet and try again.';
       message.style.color = '#e53e3e';
       message.style.backgroundColor = '#fff5f5';
+      message.style.border = '2px solid #feb2b2';
       
+      // Re-enable button
       submitBtn.disabled = false;
       btnText.classList.remove('hidden');
       btnLoading.classList.add('hidden');
